@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addTrack } from "../../features/selection/selectionSlice";
+import { addTrack, idIsInList } from "../../features/selection/selectionSlice";
 import { playPause } from "../../features/selection/playPauseSlice";
 
 export default function TrackBlock(props) {
+  const [trackSelected, setSelected] = useState(false);
   const dispatch = useDispatch();
   return (
     <div className='trackBlock'>
@@ -20,8 +21,15 @@ export default function TrackBlock(props) {
           onClick={() => {
             dispatch(addTrack(props.data));
             dispatch(playPause(false));
+            if (idIsInList()) {
+              setSelected(true);
+            }
           }}>
-          <i className='fas fa-plus-circle fa-lg'></i>
+          {trackSelected ? (
+            <i className='fas fa-check fa-lg'></i>
+          ) : (
+            <i className='fas fa-plus-circle fa-lg'></i>
+          )}
         </div>
       </div>
     </div>

@@ -1,14 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const checkId = (state, action) => {
+  const idAlreadyExists =
+    state.tracks.findIndex((item) => {
+      return item.id === action.payload.id;
+    }) > -1;
+
+  return idAlreadyExists;
+};
+
 export const selectionSlice = createSlice({
   name: "selection",
   initialState: { tracks: [], tracksDescriptionVisible: false },
   reducers: {
+    idIsInList: (state, action) => {
+      return checkId(state, action);
+    },
     addTrack: (state, action) => {
-      const idAlreadyExists =
-        state.tracks.findIndex((item) => {
-          return item.id === action.payload.id;
-        }) > -1;
+      const idAlreadyExists = checkId(state, action);
 
       if (!idAlreadyExists) state.tracks.push(action.payload);
     },
@@ -26,7 +35,8 @@ export const selectionSlice = createSlice({
   }
 });
 
-export const { addTrack, removeTrack, showTrackDescription } = selectionSlice.actions;
+export const { addTrack, removeTrack, showTrackDescription, idIsInList } =
+  selectionSlice.actions;
 export const selectTracks = (state) => state.selection;
 
 export default selectionSlice.reducer;
