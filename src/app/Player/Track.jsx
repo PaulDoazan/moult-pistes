@@ -51,15 +51,18 @@ export default function Track(props) {
   };
 
   const handleDown = (event) => {
+    console.log(event);
     dispatch(updateVisualProgress(event.target.value));
     dispatch(playPause(false));
   };
 
   const handleChange = (event) => {
+    console.log(event);
     dispatch(updateVisualProgress(event.target.value));
   };
 
   const handleUp = (event) => {
+    console.log(event);
     dispatch(updateVisualProgress(event.target.value));
     dispatch(updateAudioProgress(event.target.value));
   };
@@ -128,8 +131,8 @@ export default function Track(props) {
             max={duration ? duration : `${ duration }`}
             className='input-progress'
             onChange={handleChange}
-            onMouseDown={handleDown}
-            onMouseUp={handleUp}
+            onPointerDown={handleDown}
+            onClick={handleUp}
             style={{
               background: trackStyling,
               display: displayDescription,
