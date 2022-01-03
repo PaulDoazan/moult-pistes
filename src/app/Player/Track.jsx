@@ -131,8 +131,8 @@ export default function Track(props) {
             max={duration ? duration : `${ duration }`}
             className='input-progress'
             onChange={handleChange}
-            onPointerDown={handleDown}
-            onClick={handleUp}
+            onTouchStart={handleDown}
+            onTouchEnd={handleUp}
             style={{
               background: trackStyling,
               display: displayDescription,
