@@ -82,6 +82,7 @@ export default function Track(props) {
     })
 
     sound.once('load', () => {
+      setAudio(sound);
       setLoaded(true);
     });
   }, []);
