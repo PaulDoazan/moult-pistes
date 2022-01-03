@@ -150,9 +150,14 @@ input:focus {
   width: 55px;
   height: 21px;
   cursor: pointer;
-  opacity: 0;
+  opacity: 0.01;
   left: -3px;
 }
+
+/* .volume-control .bars .level-input::-webkit-slider-thumb {
+  width: 5px;
+  height: 5px;
+} */
 
 .trash {
   color: white;

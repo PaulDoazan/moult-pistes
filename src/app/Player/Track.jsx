@@ -25,7 +25,7 @@ export default function Track(props) {
   const track = props.track;
 
   // Refs
-  const duration = 31;
+  const duration = 30;
   const [audio, setAudio] = useState(null);
   const [loaded, setLoaded] = useState(false);
   const [displayDescription, setDisplayDuration] = useState(`none`);
@@ -46,11 +46,7 @@ export default function Track(props) {
     clearInterval(intervalRef.current);
 
     intervalRef.current = setInterval(() => {
-      if (audio.ended) {
-        dispatch(playPause(false));
-        audio.currentTime = 0;
-      }
-      dispatch(updateVisualProgress(audio.currentTime));
+      dispatch(updateVisualProgress(audio.seek()));
     }, [1000]);
   };
 
@@ -79,6 +75,10 @@ export default function Track(props) {
     //setAudio(new Audio(track.preview));
     let sound = new Howl({
       src: [track.preview],
+      onend:()=>{
+        dispatch(playPause(false));
+        dispatch(updateVisualProgress(sound.seek()));
+      } 
     })
 
     sound.once('load', () => {
@@ -105,7 +105,7 @@ export default function Track(props) {
 
   useEffect(() => {
     if (audio) {
-      audio.currentTime = progress.visual;
+      audio.seek(progress.visual);
     }
   }, [progress.audio]);
 
