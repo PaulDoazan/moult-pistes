@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { Howl, Howler } from 'howler';
 import Track_level_control from "./Track_level_control";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -26,6 +27,7 @@ export default function Track(props) {
   // Refs
   const duration = 31;
   const [audio, setAudio] = useState(null);
+  const [loaded, setLoaded] = useState(false);
   const [displayDescription, setDisplayDuration] = useState(`none`);
   const [displayWidth, setDisplayWidth] = useState(`0%`);
   const [displayOpacity, setDisplayOpacity] = useState(`0`);
@@ -74,7 +76,14 @@ export default function Track(props) {
   };
 
   useEffect(() => {
-    setAudio(new Audio(track.preview));
+    //setAudio(new Audio(track.preview));
+    let sound = new Howl({
+      src: [track.preview],
+    })
+
+    sound.once('load', () => {
+      setLoaded(true);
+    });
   }, []);
 
   useEffect(() => {
@@ -100,38 +109,42 @@ export default function Track(props) {
   }, [progress.audio]);
 
   return (
-    <div className='input-container' style={{ opacity: displayOpacity }}>
-      {selection.tracksDescriptionVisible ?
-        <div className="track-description">
-          <span><strong>{track.title_short}</strong> / </span>
-          <span className="description-artist-name">{track.artist.name}</span>
-        </div>
-        : null}
+    <>
+      {!loaded ? "loading ..." :
+        <div className='input-container' style={{ opacity: displayOpacity }}>
+          {selection.tracksDescriptionVisible ?
+            <div className="track-description">
+              <span><strong>{track.title_short}</strong> / </span>
+              <span className="description-artist-name">{track.artist.name}</span>
+            </div>
+            : null}
 
-      <input
-        type='range'
-        value={progress.visual}
-        step='1'
-        min='0'
-        max={duration ? duration : `${ duration }`}
-        className='input-progress'
-        onChange={handleChange}
-        onMouseDown={handleDown}
-        onMouseUp={handleUp}
-        style={{
-          background: trackStyling,
-          display: displayDescription,
-          width: displayWidth
-        }}
-      />
-      <Track_level_control audio={audio} />
-      <div
-        className='trash'
-        onClick={() => {
-          handleDelete();
-        }}>
-        <i className='fas fa-minus-circle fa-lg'></i>
-      </div>
-    </div>
+          <input
+            type='range'
+            value={progress.visual}
+            step='1'
+            min='0'
+            max={duration ? duration : `${ duration }`}
+            className='input-progress'
+            onChange={handleChange}
+            onMouseDown={handleDown}
+            onMouseUp={handleUp}
+            style={{
+              background: trackStyling,
+              display: displayDescription,
+              width: displayWidth
+            }}
+          />
+          <Track_level_control audio={audio} />
+          <div
+            className='trash'
+            onClick={() => {
+              handleDelete();
+            }}>
+            <i className='fas fa-minus-circle fa-lg'></i>
+          </div>
+        </div>
+      }
+    </>
   );
 }
