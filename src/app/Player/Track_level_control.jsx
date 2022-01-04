@@ -14,13 +14,13 @@ export default function Track_level_control(props) {
 
   useEffect(() => {
     if (audio) {
-      audio.volume = volume / 100;
+      audio.volume(volume / 100);
     }
   }, [volume]);
 
   useEffect(() => {
     if (audio) {
-      audio.volume = volume / 100;
+      audio.volume(volume / 100);
     }
   }, [audio]);
 
