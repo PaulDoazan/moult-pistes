@@ -51,18 +51,15 @@ export default function Track(props) {
   };
 
   const handleDown = (event) => {
-    console.log(event);
     dispatch(updateVisualProgress(event.target.value));
     dispatch(playPause(false));
   };
 
   const handleChange = (event) => {
-    console.log(event);
     dispatch(updateVisualProgress(event.target.value));
   };
 
   const handleUp = (event) => {
-    console.log(event);
     dispatch(updateVisualProgress(event.target.value));
     dispatch(updateAudioProgress(event.target.value));
   };
@@ -78,11 +75,14 @@ export default function Track(props) {
     //setAudio(new Audio(track.preview));
     let sound = new Howl({
       src: [track.preview],
-      onend:()=>{
+    })
+
+    if (track === selection.tracks[0]) {
+      sound.on('end', () => {
         dispatch(playPause(false));
         dispatch(updateVisualProgress(sound.seek()));
-      } 
-    })
+      });
+    }
 
     sound.once('load', () => {
       setAudio(sound);
@@ -133,6 +133,8 @@ export default function Track(props) {
             onChange={handleChange}
             onTouchStart={handleDown}
             onTouchEnd={handleUp}
+            onMouseDown={handleDown}
+            onMouseUp={handleUp}
             style={{
               background: trackStyling,
               display: displayDescription,
