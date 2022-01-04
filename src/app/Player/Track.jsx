@@ -67,8 +67,8 @@ export default function Track(props) {
   const handleDelete = () => {
     dispatch(playPause(false));
     dispatch(removeTrack(track));
-    clearInterval(intervalRef.current);
-    audio.src = null;
+    if (intervalRef) clearInterval(intervalRef.current);
+    if (audio) audio.src = null;
   };
 
   useEffect(() => {
@@ -87,6 +87,7 @@ export default function Track(props) {
     sound.once('load', () => {
       setAudio(sound);
       setLoaded(true);
+      props.handleLoad(track.id);
     });
   }, []);
 
@@ -114,14 +115,23 @@ export default function Track(props) {
 
   return (
     <>
-      {!loaded ? "loading ..." :
+      {!loaded ? <div className="loading-container">
+        <div>loading ...</div>
+        <div
+          className='trash'
+          onClick={() => {
+            handleDelete();
+          }}>
+          <i className='fas fa-minus-circle fa-lg'></i>
+        </div>
+      </div> :
         <div className='input-container' style={{ opacity: displayOpacity }}>
-          {selection.tracksDescriptionVisible ?
+          {selection.tracksDescriptionVisible &&
             <div className="track-description">
               <span><strong>{track.title_short}</strong> / </span>
               <span className="description-artist-name">{track.artist.name}</span>
             </div>
-            : null}
+          }
 
           <input
             type='range'

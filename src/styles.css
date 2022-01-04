@@ -50,6 +50,11 @@ input:focus {
   outline: none;
 }
 
+.loading-container {
+  display: flex;
+  justify-content: space-between;
+}
+
 .input-container {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
@@ -252,7 +257,8 @@ ul {
 }
 
 .btn-disabled {
-  color: #000;
+  pointer-events: none;
+  opacity: 0.5;
 }
 
 .audio-controls .prev svg,

@@ -13,25 +13,27 @@ const AudioControls = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className={selection.tracks.length ? 'audio-controls' : 'audio-controls btn-disabled'}>
-      {pp.value ? (
-        <button
-          type='button'
-          className='pause'
-          onClick={() => dispatch(playPause(false))}
-          aria-label='Pause'>
-          <Pause />
-        </button>
-      ) : (
-        <button
-          type='button'
-          className='play'
-          onClick={() => dispatch(playPause(true))}
-          aria-label='Play'>
-          <Play />
-        </button>
-      )}
-    </div>)
+    <>
+      <div className={pp.enabled ? 'audio-controls' : 'audio-controls btn-disabled'}>
+        {pp.value ? (
+          <button
+            type='button'
+            className='pause'
+            onClick={() => dispatch(playPause(false))}
+            aria-label='Pause'>
+            <Pause />
+          </button>
+        ) : (
+          <button
+            type='button'
+            className='play'
+            onClick={() => dispatch(playPause(true))}
+            aria-label='Play'>
+            <Play />
+          </button>
+        )}
+      </div>
+    </>)
 };
 
 export default AudioControls;
