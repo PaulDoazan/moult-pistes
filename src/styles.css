@@ -317,14 +317,9 @@ ul {
 }
 
 .top-menu-container {
-  position: fixed;
-  width: 30%;
-  background-color: var(--dark-blue);
-}
-
-.searchbar-container {
   display: flex;
   justify-content: flex-end;
+  background-color: var(--dark-blue);
 }
 
 .toggle-button {
