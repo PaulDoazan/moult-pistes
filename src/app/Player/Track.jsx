@@ -32,9 +32,17 @@ export default function Track(props) {
   const [displayWidth, setDisplayWidth] = useState(`0%`);
   const [displayOpacity, setDisplayOpacity] = useState(`0`);
 
-  const currentPercentage = duration
+  let currentPercentage = duration
     ? `${ (progress.visual / duration) * 100 }%`
     : "0%";
+  if(duration) {
+    currentPercentage = (progress.visual / duration) * 100;
+    if(currentPercentage > 100) currentPercentage = 100;
+  } else {
+    currentPercentage = 0;
+  }
+
+  currentPercentage = `${ currentPercentage }%`;
   const trackStyling = `
   -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${ currentPercentage }, #fff), color-stop(${ currentPercentage }, #777))
 `;

@@ -38,6 +38,7 @@ export default function Sidebar() {
             <div className='searchbar'>
               <input
                 className='search-input'
+                autocomplete="off"
                 type='search'
                 id='name'
                 name='name'
