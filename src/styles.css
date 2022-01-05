@@ -469,7 +469,7 @@ ul {
   margin-bottom: 1em;
   width: 100%;
   display: flex;
-  justify-content: right;
+  justify-content: flex-end;
   bottom: 0;
 }
 

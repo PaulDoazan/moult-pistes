@@ -25,7 +25,7 @@ export default function Track(props) {
   const track = props.track;
 
   // Refs
-  const duration = 30;
+  const duration = 29;
   const [audio, setAudio] = useState(null);
   const [loaded, setLoaded] = useState(false);
   const [displayDescription, setDisplayDuration] = useState(`none`);
@@ -68,11 +68,12 @@ export default function Track(props) {
     dispatch(playPause(false));
     dispatch(removeTrack(track));
     if (intervalRef) clearInterval(intervalRef.current);
-    if (audio) audio.src = null;
+    if (audio){
+      audio.unload();
+    } 
   };
 
   useEffect(() => {
-    //setAudio(new Audio(track.preview));
     let sound = new Howl({
       src: [track.preview],
     })
