@@ -362,6 +362,11 @@ ul {
   margin-top: 18px;
 }
 
+.fa-envelope {
+  cursor: pointer;
+  color: white;
+}
+
 .list-badge {
   display: flex;
   justify-content: center;
@@ -461,6 +466,22 @@ ul {
 .trackBlock .trackBlock-buttons {
   display: flex;
   align-items: center;
+}
+
+.footer {
+  position: absolute; 
+  padding-right: 2em;
+  margin-bottom: 1em;
+  width: 100%;
+  display: flex;
+  justify-content: right;
+  bottom: 0;
+}
+
+.mailto {
+  text-decoration: none;
+  margin-left: 0.5em;
+  color: white;
 }
 
 /* PULSATING CIRCLE */

@@ -8,6 +8,12 @@ import {
 export default function Sidebar() {
   const menu = useSelector(selectMenu);
   const [datas, setDatas] = useState([]);
+  const [mailVisible, setMailVisible] = useState(false);
+
+  const handleEnvelope = () => {
+    setMailVisible(!mailVisible);
+  }
+
   const fetchData = (e) => {
     e.preventDefault();
 
@@ -25,6 +31,7 @@ export default function Sidebar() {
 
   if (menu.isDisplayed) {
     return (
+      <>
       <div className='menu-container'>
         <div className="top-menu-container ">
           <div className="searchbar-container">
@@ -44,7 +51,7 @@ export default function Sidebar() {
           </div>
         </div>
 
-        {datas ? (
+        {datas && datas.length > 0 ? (
           <ul>
             {datas.map((data) => (
               <li key={data.id}>
@@ -52,8 +59,12 @@ export default function Sidebar() {
               </li>
             ))}
           </ul>
-        ) : null}
+        ) : <div className="footer">
+              <i onClick={handleEnvelope} className='fas fa-envelope fa-lg'></i>
+              {mailVisible && <a className="mailto" href="mailto:gianni.vattimi@gmail.com">gianni.vattimi@gmail.com</a>}
+            </div>}
       </div>
+      </>
     );
   } else {
     return null;
