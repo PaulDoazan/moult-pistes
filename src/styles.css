@@ -479,6 +479,7 @@ ul {
   z-index: -1;
   position: absolute;
   color: white;
+  padding-bottom: 56.25%;
 }
 
 .container-embed {
@@ -486,6 +487,19 @@ ul {
   justify-content: center;
   align-items: center;
   bottom: 0;
+  overflow: hidden;
+  /* 16:9 aspect ratio */
+  padding-top: 56.25%;
+  position: relative;
+}
+
+.container-embed iframe{
+  border: 0;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
 }
 
 .mail-info {
