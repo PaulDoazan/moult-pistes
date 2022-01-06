@@ -465,12 +465,36 @@ ul {
 
 .footer {
   position: absolute; 
+  width: 100%;
+  bottom: 0;
+}
+
+.icon-footer {
+  margin-left: 0.5em;
+  color: white;
+  cursor: pointer;
+}
+
+.video-loading {
+  z-index: -1;
+  position: absolute;
+  color: white;
+}
+
+.container-embed {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 0;
+}
+
+.mail-info {
   padding-right: 2em;
   margin-bottom: 1em;
+  margin-top: 1em;
   width: 100%;
   display: flex;
   justify-content: flex-end;
-  bottom: 0;
 }
 
 .mailto {
